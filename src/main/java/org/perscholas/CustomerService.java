@@ -37,16 +37,34 @@ public class CustomerService implements CustomerDAO{
         try {
             db.ps = db.conn.prepareStatement(SQL.ADD_CUSTOMER.getQuery());
             db.ps.setString(1, c.getFname());
-
+            db.ps.setString(2, c.getLname());
+            db.ps.setString(3, c.getEmail());
+            result = db.ps.execute();
         }
         catch(SQLException exc) {
             exc.printStackTrace();
         }
+
+        db.dispose();
         return result;
     }
 
     @Override
     public boolean removeCustomer(int id) {
-        return false;
+        boolean result = false;
+        DatabaseConnection db = new DatabaseConnection();
+
+        try {
+            db.ps = db.conn.prepareStatement(SQL.REMOVE_CUSTOMER.getQuery());
+            db.ps.setInt(1, id);
+
+            result = db.ps.execute();
+        }
+        catch(SQLException exc) {
+            exc.printStackTrace();
+        }
+
+        db.dispose();
+        return result;
     }
 }
