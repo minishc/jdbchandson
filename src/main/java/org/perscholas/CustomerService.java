@@ -33,6 +33,7 @@ public class CustomerService implements CustomerDAO{
     public boolean addCustomer(Customer c) {
         boolean result = false;
         DatabaseConnection db = new DatabaseConnection();
+        db.connect();
 
         try {
             db.ps = db.conn.prepareStatement(SQL.ADD_CUSTOMER.getQuery());
@@ -53,6 +54,7 @@ public class CustomerService implements CustomerDAO{
     public boolean removeCustomer(int id) {
         boolean result = false;
         DatabaseConnection db = new DatabaseConnection();
+        db.connect();
 
         try {
             db.ps = db.conn.prepareStatement(SQL.REMOVE_CUSTOMER.getQuery());
